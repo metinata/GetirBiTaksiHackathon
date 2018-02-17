@@ -4,7 +4,7 @@ const api = 'http://localhost:3000';
 
 export const getCountries = () => {
     return new Promise((resolve, reject) => {
-        axios.get(`${api}/countries`)
+        axios.get(`${api}/order/countries`)
             .then(response => {
                 resolve(response.data);
             })
@@ -14,9 +14,9 @@ export const getCountries = () => {
     });
 }
 
-export const getCitiesByCountryId = (countryId) => {
+export const getCitiesByCountryId = (countryId, cityId) => {
     return new Promise((resolve, reject) => {
-        axios.get(`${api}/cities`, { id: countryId })
+        axios.get(`${api}/order/cities`, { params: { countryId: countryId, cityId: cityId } })
             .then(response => {
                 resolve(response.data);
             })
@@ -28,7 +28,19 @@ export const getCitiesByCountryId = (countryId) => {
 
 export const getProductsByCityId = (cityId) => {
     return new Promise((resolve, reject) => {
-        axios.get(`${api}/products`, { id: cityId })
+        axios.get(`${api}/order/products`, { params: { id: cityId } })
+            .then(response => {
+                resolve(response.data);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+}
+
+export const getAvailableUsers = (cityId) => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${api}/order/users`, { params: { id: cityId } })
             .then(response => {
                 resolve(response.data);
             })

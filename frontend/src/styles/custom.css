@@ -1,3 +1,8 @@
 html,body,#root{
     height: 100%;
 }
+.steps{
+    width: 100%;
+    padding: 40px 0;
+    display: flex;
+}

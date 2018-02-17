@@ -52,7 +52,7 @@ const populateCountries = (countryList, cityList) => {
         cityList.filter((city) => city.__ref == country.__ref).map((city) => {
             cities.push(city._id)
         });
-        country.cities.push(cities);
+        country.cities = cities;
     });
     return new Promise((resolve, reject) => {
         models.Country.collection.insert(countryList, (error, result) => {
