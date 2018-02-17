@@ -7,8 +7,10 @@ import routes from './routes'
 import mongoose from 'mongoose'
 import data from './data'
 
-const mongo = mongoose.connect('mongodb://localhost:27017/GetirBiTaksiHackathon', () => {
-    mongoose.connection.db.dropDatabase();
+mongoose.connect(`mongodb://${config.mongo.host}:27017/GetirBiTaksiHackathon`);
+
+mongoose.connection.on('connected', () => {
+    mongoose.connection.db ? mongoose.connection.db.dropDatabase() : null;
     data.seed();
 });
 

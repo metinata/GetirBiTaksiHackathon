@@ -12,6 +12,9 @@ const steps = [
         title: 'Select City'
     },
     {
+        title: 'Select User'
+    },
+    {
         title: 'Select Product'
     }
 ];

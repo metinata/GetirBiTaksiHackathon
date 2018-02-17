@@ -1,0 +1,37 @@
+version: '3'
+services:
+  app:
+    build: ./frontend
+    container_name: client
+    command: npm run start
+    ports:
+      - 8080:8080
+    depends_on:
+      - server
+    volumes:
+     - ./frontend:/usr/src/frontend
+    environment:
+      NODE_ENV: development
+
+  server:
+    build: ./api
+    container_name: api
+    command: npm run start
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    volumes:
+      - ./api:/usr/src/api
+    links:
+      - mongo
+    environment:
+      NODE_ENV: development
+      EXPRESS_PORT: 3000
+      MONGO: mongo
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - 27017:27017
