@@ -3,11 +3,12 @@ import Home from './components/home'
 import actions from './actions'
 
 const mapStateToProps = (state) => ({
-    ...state
+    users: state.home.users,
+    me: state.home.me
 });
 
 const mapDispatchToProps = {
-    reset: actions.reset
+    ...actions
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

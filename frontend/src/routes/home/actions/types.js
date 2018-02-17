@@ -1,9 +1,10 @@
-const PUBLIC_SEARCH = 'PUBLIC_SEARCH'
-const PARTIAL_SEARCH = 'PARTIAL_SEARCH'
-const RESET = 'RESET'
+const
+    GET_USERS = 'GET_USERS',
+    LOGIN = 'LOGIN',
+    RESET = 'RESET'
 
 export default {
-    PUBLIC_SEARCH,
-    PARTIAL_SEARCH,
+    GET_USERS,
+    LOGIN,
     RESET
 }
