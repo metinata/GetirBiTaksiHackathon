@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Table, Form, Row, Col, Input, Icon, Steps, Button, message } from 'antd'
-import { SelectCountry, SelectCity } from '../../../components'
+import { SelectCountry, SelectCity, ProductList, SelectUser } from '../../../components'
 
 const Step = Steps.Step;
 
@@ -19,6 +19,8 @@ const steps = [
 class Order extends PureComponent {
     constructor(props) {
         super(props);
+        this.changeCountry = this.changeCountry.bind(this);
+        this.changeCity = this.changeCity.bind(this);
         this.state = {
             current: 0
         };
@@ -34,6 +36,10 @@ class Order extends PureComponent {
     }
 
     componentDidMount() {
+        if (!this.props.me._id) {
+            this.props.history.push('/');
+            return;
+        }
         this.props.getCountries();
         /*
         this.props.getCitiesByCountryId("5a884bfc44b1d45a04af13db", this.props.me.city._id);
@@ -42,10 +48,24 @@ class Order extends PureComponent {
         */
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.country && !nextProps.city){
-            this.next();
-        }
+    changeCountry(countryId) {
+        this.props.getCitiesByCountryId(countryId, this.props.me.city._id)
+            .then(() => {
+                this.next();
+            });
+    }
+
+    changeCity(location) {
+        this.props.getAvailableUsers(location, this.props.me.city._id)
+            .then(() => {
+                this.next();
+            });
+        /*
+        this.props.getProductsByCityId(cityId)
+            .then(() => {
+                this.next();
+            });
+            */
     }
 
     render() {
@@ -63,26 +83,25 @@ class Order extends PureComponent {
                                     switch (this.state.current) {
                                         case 0:
                                             return (
-                                                <SelectCountry city={this.props.me.city._id} getCities={this.props.getCitiesByCountryId} changeCountry={this.props.changeCountry} data={this.props.countries} />
+                                                <SelectCountry change={this.changeCountry} data={this.props.countries} />
                                             )
                                         case 1:
                                             return (
-                                                <SelectCity changeCity={this.props.changeCity} data={this.props.cities} />
+                                                <SelectCity changeCity={this.changeCity} data={this.props.cities} />
                                             )
                                         case 2:
                                             return (
-                                                <div>Hiii333</div>
+                                                <SelectUser data={this.props.availableUsers} />
+                                            )
+                                        case 3:
+                                            return (
+                                                <ProductList data={this.props.products} />
                                             )
                                     }
                                 })()
                             }
                         </div>
                         <div className="steps-action">
-                            {
-                                this.state.current < steps.length - 1
-                                &&
-                                <Button type="primary" onClick={() => this.next()}>Next</Button>
-                            }
                             {
                                 this.state.current === steps.length - 1
                                 &&
@@ -91,7 +110,7 @@ class Order extends PureComponent {
                             {
                                 this.state.current > 0
                                 &&
-                                <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
+                                <Button onClick={() => this.prev()}>
                                     Previous
                                 </Button>
                             }

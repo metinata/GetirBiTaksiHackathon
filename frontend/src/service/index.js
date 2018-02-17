@@ -38,9 +38,9 @@ export const getProductsByCityId = (cityId) => {
     });
 }
 
-export const getAvailableUsers = (cityId) => {
+export const getAvailableUsers = (location, destination) => {
     return new Promise((resolve, reject) => {
-        axios.get(`${api}/order/users`, { params: { id: cityId } })
+        axios.get(`${api}/order/users`, { params: { location: location, destination: destination } })
             .then(response => {
                 resolve(response.data);
             })

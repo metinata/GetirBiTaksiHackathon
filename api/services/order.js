@@ -14,22 +14,11 @@ const
             .lean()
             .exec();
     },
-    getAvailableUsers = (cityId) => {
+    getAvailableUsers = (location, destination) => {
         return models.User
-            .aggregate(
-                [
-                    {
-                        "$project": {
-                            password: 0
-                        }
-                    },
-                    {
-                        "$match": {
-                            "destination": mongoose.Types.ObjectId(cityId)
-                        }
-                    }
-                ]
-            )
+            .find({ city: location, destination: destination })
+            .populate('city destination')
+            .lean()
             .exec();
     },
     getProductsByCityId = (cityId) => {

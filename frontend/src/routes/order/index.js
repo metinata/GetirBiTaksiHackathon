@@ -4,6 +4,7 @@ import actions from '../_actions'
 
 const mapStateToProps = (state) => ({
     users: state.reducer.users,
+    availableUsers: state.reducer.availableUsers,
     products: state.reducer.products,
     cities: state.reducer.cities,
     countries: state.reducer.countries,
