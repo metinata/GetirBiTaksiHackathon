@@ -6,6 +6,7 @@ const initialState = {
     users: [],
     products: [],
     users: [],
+    availableUsers: [],
     country: null,
     city: null,
     me: {},
@@ -19,7 +20,7 @@ export default (state = initialState, action) => {
         case actionTypes.GET_CITIES:
             return { ...state, cities: action.payload }
         case actionTypes.GET_AVAILABLE_USERS:
-            return { ...state, users: action.payload }
+            return { ...state, availableUsers: action.payload }
         case actionTypes.GET_PRODUCTS:
             return { ...state, products: action.payload }
         case actionTypes.GET_USERS:

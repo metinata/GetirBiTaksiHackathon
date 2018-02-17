@@ -20,7 +20,7 @@ const
             })
     },
     getAvailableUsers = (req, res, next) => {
-        orderService.getAvailableUsers(req.query.id)
+        orderService.getAvailableUsers(req.query.location, req.query.destination)
             .then(users => {
                 res.json(users)
             })

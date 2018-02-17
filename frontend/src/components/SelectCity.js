@@ -9,7 +9,7 @@ class SelectCity extends PureComponent {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(value) {
-        console.log(value);
+        this.props.changeCity(value);
     }
     render() {
         return (
@@ -17,7 +17,7 @@ class SelectCity extends PureComponent {
                 <Select defaultValue="Please Select" style={{ width: '100%' }} onChange={this.handleChange}>
                     {
                         this.props.data.map((item, index) => {
-                            <Option key={index} value={item._id}>{item.name}</Option>
+                            return <Option key={index} value={item._id}>{item.name}</Option>
                         })
                     }
                 </Select>

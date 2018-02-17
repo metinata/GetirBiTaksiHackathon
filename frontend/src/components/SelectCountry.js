@@ -9,8 +9,7 @@ class SelectCountry extends PureComponent {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(value) {
-        this.props.changeCountry(value);
-        this.props.getCities(value, this.props.city);
+        this.props.change(value);
     }
     render() {
         return (

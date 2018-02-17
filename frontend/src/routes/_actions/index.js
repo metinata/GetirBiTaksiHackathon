@@ -29,42 +29,51 @@ const getCountries = () => (dispatch, state) => {
 }
 
 const getCitiesByCountryId = (countryId, cityId) => (dispatch, state) => {
-    service.getCitiesByCountryId(countryId, cityId)
-        .then(cities => {
-            dispatch({
-                type: actionTypes.GET_CITIES,
-                payload: cities
+    return new Promise((resolve, reject) => {
+        service.getCitiesByCountryId(countryId, cityId)
+            .then(cities => {
+                dispatch({
+                    type: actionTypes.GET_CITIES,
+                    payload: cities
+                });
+                resolve(cities);
+            })
+            .catch(e => {
+                reject(e);
             });
-        })
-        .catch(e => {
-
-        });
+    });
 }
 
 const getProductsByCityId = (cityId) => (dispatch, state) => {
-    service.getProductsByCityId(cityId)
-        .then(cities => {
-            dispatch({
-                type: actionTypes.GET_PRODUCTS,
-                payload: cities
+    return new Promise((resolve, reject) => {
+        service.getProductsByCityId(cityId)
+            .then(cities => {
+                dispatch({
+                    type: actionTypes.GET_PRODUCTS,
+                    payload: cities
+                });
+                resolve(cities);
+            })
+            .catch(e => {
+                reject(e);
             });
-        })
-        .catch(e => {
-
-        });
+    });
 }
 
-const getAvailableUsers = (cityId) => (dispatch, state) => {
-    service.getAvailableUsers(cityId)
-        .then(cities => {
-            dispatch({
-                type: actionTypes.GET_PRODUCTS,
-                payload: cities
+const getAvailableUsers = (location, destination) => (dispatch, state) => {
+    return new Promise((resolve, reject) => {
+        service.getAvailableUsers(location, destination)
+            .then(users => {
+                dispatch({
+                    type: actionTypes.GET_AVAILABLE_USERS,
+                    payload: users
+                });
+                resolve(users)
+            })
+            .catch(e => {
+                reject(e);
             });
-        })
-        .catch(e => {
-
-        });
+    });
 }
 
 const getUsers = () => (dispatch, state) => {

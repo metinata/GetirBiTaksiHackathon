@@ -8,7 +8,7 @@ import mongoose from 'mongoose'
 import data from './data'
 
 const mongo = mongoose.connect('mongodb://localhost:27017/GetirBiTaksiHackathon', () => {
-    //mongoose.connection.db.dropDatabase();
+    mongoose.connection.db.dropDatabase();
     data.seed();
 });
 
