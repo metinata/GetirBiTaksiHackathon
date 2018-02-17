@@ -10,6 +10,7 @@ ReactDOM.render(
     <Provider store={store()}>
         <BrowserRouter>
             <Switch>
+                <Route path='/order' component={Layouts.Default(routes.orderView)} />
                 <Route path='/' component={Layouts.Default(routes.homeView)} />
                 <Redirect from='*' to='/' />
             </Switch>

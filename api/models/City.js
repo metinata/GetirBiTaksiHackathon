@@ -6,6 +6,10 @@ const City = new Schema({
         required: true,
         trim: true
     },
+    country: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Country'
+    },
     products: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
 });
 

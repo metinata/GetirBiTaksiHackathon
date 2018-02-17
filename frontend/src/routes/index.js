@@ -1,13 +1,15 @@
 /* Route Components */
 import homeView from './home'
+import orderView from './order'
 
 /* Reducers */
-import home from './home/reducers'
+import reducer from './_reducers'
 
 export const routes = {
-    homeView
+    homeView,
+    orderView
 }
 
 export const reducers = {
-    home
+    reducer
 }

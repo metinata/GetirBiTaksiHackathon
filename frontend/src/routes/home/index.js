@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import Home from './components/home'
-import actions from './actions'
+import actions from '../_actions'
 
 const mapStateToProps = (state) => ({
-    users: state.home.users,
-    me: state.home.me
+    users: state.reducer.users,
+    me: state.reducer.me
 });
 
 const mapDispatchToProps = {
