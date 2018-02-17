@@ -1,6 +1,32 @@
 import * as service from '../../../service'
 import actionTypes from './types'
 
+const getUsers = () => (dispatch, state) => {
+    service.users()
+        .then(list => {
+            dispatch({
+                type: actionTypes.GET_USERS,
+                payload: list
+            });
+        })
+        .catch(e => {
+
+        });
+};
+
+const login = (id) => (dispatch, state) => {
+    service.login({ _id: id })
+        .then(result => {
+            dispatch({
+                type: actionTypes.LOGIN,
+                payload: result
+            });
+        })
+        .catch(e => {
+
+        });
+}
+
 const reset = () => (dispatch, state) => {
     dispatch({
         type: actionTypes.RESET,
@@ -8,13 +34,8 @@ const reset = () => (dispatch, state) => {
     })
 }
 
-// const appSearch = (term, limit = 3) => service.search({
-//     term: term,
-//     media: 'software',
-//     entity: 'software,iPadSoftware',
-//     limit: limit
-// })
-
 export default {
+    getUsers,
+    login,
     reset
 }
