@@ -28,6 +28,11 @@ const User = new Schema({
         ref: 'City',
         required: true
     },
+    destination: {
+        type: Schema.Types.ObjectId,
+        ref: 'City',
+        required: true
+    },
     address: {
         type: String,
         required: true,

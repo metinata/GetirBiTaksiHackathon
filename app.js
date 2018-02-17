@@ -5,9 +5,13 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import * as models from './models'
-
 import mongoose from 'mongoose'
-mongoose.connect('mongodb://localhost:27017/GetirBiTaksiHackathon');
+import data from './data'
+
+const mongo = mongoose.connect('mongodb://localhost:27017/GetirBiTaksiHackathon', () => {
+    mongoose.connection.db.dropDatabase();
+    data.seed();
+});
 
 //Routes
 import index from './routes/index'

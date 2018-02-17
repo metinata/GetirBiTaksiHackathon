@@ -9,4 +9,4 @@
 * Siparişlerin görülebildiği bir ekran olsun
 
 #### Takım (1)
-Metin Ata Yeter<metinatayeter@gmail.com>
+Metin Ata Yeter <metinatayeter@gmail.com>
