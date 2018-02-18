@@ -45,7 +45,7 @@ export default [
         weight: 2500
     },
     {
-        name: 'Acer Predator 4K Monitor',
+        name: 'Acer Predator',
         price: 3500,
         weight: 5000
     },

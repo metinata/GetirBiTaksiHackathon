@@ -3,8 +3,7 @@ html,body,#root{
 }
 .steps{
     width: 100%;
-    padding: 40px 0;
-    display: flex;
+    padding: 20px 0;
 }
 .steps.products .ant-col-4{
     min-height: 60px;
@@ -12,4 +11,11 @@ html,body,#root{
     line-height: 20px;
     padding: 20px 0;
     box-sizing: border-box;
+}
+.steps.products.list .ant-card-head-title{
+    font-size: 12px;
+    font-weight: normal;
+}
+.progressbar{
+    padding: 20px 0 0;
 }

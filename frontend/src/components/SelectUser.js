@@ -4,6 +4,7 @@ import { Table, Icon, Divider, Row, Col, Input, Button } from 'antd'
 class SelectUser extends PureComponent {
     constructor(props) {
         super(props);
+        this.userSelect = this.userSelect.bind(this);
         this.columns = [
             {
                 title: 'User',
@@ -32,18 +33,23 @@ class SelectUser extends PureComponent {
                 title: 'ACTION',
                 key: 'login',
                 render: (text, record) => {
-                    return <Button type="primary">SELECT</Button>
+                    return <Button type="primary" onClick={this.userSelect.bind(null, record.city._id, record.quota)}>SELECT</Button>
                 }
             }
         ]
     }
+    userSelect(cityId, quota) {
+        this.props.selectUser(cityId, quota);
+    }
     render() {
         return (
-            <Row gutter={10}>
-                <Col span={24}>
-                    <Table columns={this.columns} dataSource={this.props.data} />
-                </Col>
-            </Row>
+            <div className="steps">
+                <Row gutter={10}>
+                    <Col span={24}>
+                        <Table columns={this.columns} dataSource={this.props.data} />
+                    </Col>
+                </Row>
+            </div>
         )
     }
 }

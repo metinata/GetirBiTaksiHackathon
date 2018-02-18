@@ -1,21 +1,21 @@
 export default [
     {
-        name: 'Türkiye',
+        name: 'Turkey',
         cities: [],
         __ref: 0
     },
     {
-        name: 'Amerika',
+        name: 'United States',
         cities: [],
         __ref: 1
     },
     {
-        name: 'Ingiltere',
+        name: 'England',
         cities: [],
         __ref: 2
     },
     {
-        name: 'Fransa',
+        name: 'France',
         cities: [],
         __ref: 3
     }

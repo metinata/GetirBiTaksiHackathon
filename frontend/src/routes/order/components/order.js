@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Table, Form, Row, Col, Input, Icon, Steps, Button, message } from 'antd'
+import { Divider, Progress, Table, Form, Row, Col, Input, Icon, Steps, Button, message } from 'antd'
 import { SelectCountry, SelectCity, ProductList, SelectUser } from '../../../components'
 
 const Step = Steps.Step;
@@ -24,18 +24,51 @@ class Order extends PureComponent {
         super(props);
         this.changeCountry = this.changeCountry.bind(this);
         this.changeCity = this.changeCity.bind(this);
+        this.selectUser = this.selectUser.bind(this);
+        this.addToBasket = this.addToBasket.bind(this);
         this.state = {
-            current: 0
+            current: 0,
+            quota: 0,
+            currentQuota: 0,
+            basket: [],
+            rate: 0
         };
     }
 
-    next() {
+    addToBasket(product, quantity) {
+        let afterQuota = (product.weight * quantity) + this.state.currentQuota;
+
+        if (afterQuota > this.state.quota) {
+            message.warning('Insufficient quota limit');
+            return;
+        }
+        let rate = Math.floor(afterQuota / (this.state.quota / 100));
+
+        let p = {
+            product: product,
+            quantity: quantity
+        };
+
+        let basket = this.state.basket.splice();
+        
+        basket.push(p);
+        
+        this.setState({
+            currentQuota: afterQuota,
+            rate: rate,
+            basket: basket
+        }, () => {
+            message.success(`${quantity} ${product.name} added to your basket`);
+        });
+    }
+
+    next(quota) {
         const current = this.state.current + 1;
-        this.setState({ current });
+        this.setState({ current: current, quota: quota ? quota : 0 });
     }
     prev() {
         const current = this.state.current - 1;
-        this.setState({ current });
+        this.setState({ current: current, quota: 0, basket: [], currentQuota: 0, rate: 0 });
     }
 
     componentDidMount() {
@@ -44,11 +77,6 @@ class Order extends PureComponent {
             return;
         }
         this.props.getCountries();
-        /*
-        this.props.getCitiesByCountryId("5a884bfc44b1d45a04af13db", this.props.me.city._id);
-        this.props.getAvailableUsers("5a884bfc44b1d45a04af13d8");
-        this.props.getProductsByCityId("5a884bfc44b1d45a04af13d8");
-        */
     }
 
     changeCountry(countryId) {
@@ -63,12 +91,13 @@ class Order extends PureComponent {
             .then(() => {
                 this.next();
             });
-        /*
+    }
+
+    selectUser(cityId, quota = 0) {
         this.props.getProductsByCityId(cityId)
             .then(() => {
-                this.next();
+                this.next(quota);
             });
-            */
     }
 
     render() {
@@ -82,6 +111,14 @@ class Order extends PureComponent {
                         </Steps>
                         <div className="steps-content">
                             {
+                                this.state.quota > 0 ? (
+                                    <div className="progressbar">
+                                        <Divider>{this.state.currentQuota} of {this.state.quota}</Divider>
+                                        <Progress percent={this.state.rate} status="active" />
+                                    </div>
+                                ) : null
+                            }
+                            {
                                 (() => {
                                     switch (this.state.current) {
                                         case 0:
@@ -94,11 +131,11 @@ class Order extends PureComponent {
                                             )
                                         case 2:
                                             return (
-                                                <SelectUser data={this.props.availableUsers} />
+                                                <SelectUser selectUser={this.selectUser} data={this.props.availableUsers} />
                                             )
                                         case 3:
                                             return (
-                                                <ProductList data={this.props.products} />
+                                                <ProductList addToBasket={this.addToBasket} data={this.props.products} />
                                             )
                                     }
                                 })()
@@ -106,16 +143,16 @@ class Order extends PureComponent {
                         </div>
                         <div className="steps-action">
                             {
-                                this.state.current === steps.length - 1
-                                &&
-                                <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>
-                            }
-                            {
                                 this.state.current > 0
                                 &&
                                 <Button onClick={() => this.prev()}>
                                     Previous
                                 </Button>
+                            }
+                            {
+                                this.state.current === steps.length - 1
+                                &&
+                                <Button type="primary" style={{float: 'right'}} onClick={() => message.success('Order completed!')}>Checkout</Button>
                             }
                         </div>
                     </Col>
