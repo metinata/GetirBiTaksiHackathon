@@ -10,6 +10,8 @@ ReactDOM.render(
     <Provider store={store()}>
         <BrowserRouter>
             <Switch>
+                <Route path='/admin' component={Layouts.Default(routes.adminView)} />
+                <Route path='/success' component={Layouts.Default(routes.successView)} />
                 <Route path='/order' component={Layouts.Default(routes.orderView)} />
                 <Route path='/' component={Layouts.Default(routes.homeView)} />
                 <Redirect from='*' to='/' />

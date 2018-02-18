@@ -1,6 +1,31 @@
 import * as service from '../../service'
 import actionTypes from './types'
 
+const getOrders = () => (dispatch, state) => {
+    service.getOrders()
+        .then(orders => {
+            dispatch({
+                type: actionTypes.GET_ORDERS,
+                payload: orders
+            });
+        })
+        .catch(e => {
+            
+        });
+};
+
+const placeOrder = (items, owner, supplier) => (dispatch, state) => {
+    return new Promise((resolve, reject) => {
+        service.placeOrder(items, owner, supplier)
+        .then(result => {
+            resolve(result);
+        })
+        .catch(e => {
+            reject(result);
+        });
+    });
+}
+
 const changeCountry = (country) => (dispatch, state) => {
     dispatch({
         type: actionTypes.CHANGE_COUNTRY,
@@ -110,6 +135,8 @@ const reset = () => (dispatch, state) => {
 }
 
 export default {
+    getOrders,
+    placeOrder,
     changeCountry,
     changeCity,
     getCountries,

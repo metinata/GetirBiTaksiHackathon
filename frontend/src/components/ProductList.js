@@ -12,23 +12,23 @@ class ProductList extends PureComponent {
     }
     productCountChange(id, value) {
         let quantityArray = this.state.quantity;
-        let index = quantityArray.findIndex((a) => a.id == id)
+        let index = quantityArray.findIndex((a) => a.product == id)
         if(index >= 0){
-            quantityArray[index].count = value;
+            quantityArray[index].quantity = value;
         }
         else{
             let product = {
-                id: id,
-                count: value
+                product: id,
+                quantity: value
             };
             quantityArray.push(product);
         }
         this.setState({ quantity: quantityArray })
     }
     addToBasket(product) {
-        let index = this.state.quantity.findIndex((x) => x.id == product._id);
-        let count = index >= 0 ? this.state.quantity[index].count : 1
-        this.props.addToBasket(product, count);
+        let index = this.state.quantity.findIndex((x) => x.product == product._id);
+        let quantity = index >= 0 ? this.state.quantity[index].quantity : 1
+        this.props.addToBasket(product, quantity);
     }
     render() {
         return (

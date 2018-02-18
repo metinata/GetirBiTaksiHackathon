@@ -26,13 +26,28 @@ class Order extends PureComponent {
         this.changeCity = this.changeCity.bind(this);
         this.selectUser = this.selectUser.bind(this);
         this.addToBasket = this.addToBasket.bind(this);
+        this.placeOrder = this.placeOrder.bind(this);
         this.state = {
             current: 0,
             quota: 0,
             currentQuota: 0,
             basket: [],
-            rate: 0
+            rate: 0,
+            owner: this.props.me,
+            supplier: {}
         };
+    }
+
+    placeOrder() {
+        this.props.placeOrder(this.state.basket, this.state.owner, this.state.supplier)
+            .then(response => {
+                //message.success('Your order is successfully created!');
+                this.props.history.push('/success');
+            })
+            .catch(e => {
+                console.log(e);
+                message.error('An error occured');
+            });
     }
 
     addToBasket(product, quantity) {
@@ -49,10 +64,9 @@ class Order extends PureComponent {
             quantity: quantity
         };
 
-        let basket = this.state.basket.splice();
+        let basket = this.state.basket;
         
         basket.push(p);
-        
         this.setState({
             currentQuota: afterQuota,
             rate: rate,
@@ -62,10 +76,11 @@ class Order extends PureComponent {
         });
     }
 
-    next(quota) {
+    next(supplier = {}) {
         const current = this.state.current + 1;
-        this.setState({ current: current, quota: quota ? quota : 0 });
+        this.setState({ current: current, quota: supplier.quota ? supplier.quota : 0, supplier: supplier });
     }
+
     prev() {
         const current = this.state.current - 1;
         this.setState({ current: current, quota: 0, basket: [], currentQuota: 0, rate: 0 });
@@ -93,10 +108,10 @@ class Order extends PureComponent {
             });
     }
 
-    selectUser(cityId, quota = 0) {
-        this.props.getProductsByCityId(cityId)
+    selectUser(supplier) {
+        this.props.getProductsByCityId(supplier.city._id)
             .then(() => {
-                this.next(quota);
+                this.next(supplier);
             });
     }
 
@@ -152,7 +167,7 @@ class Order extends PureComponent {
                             {
                                 this.state.current === steps.length - 1
                                 &&
-                                <Button type="primary" style={{float: 'right'}} onClick={() => message.success('Order completed!')}>Checkout</Button>
+                                <Button type="primary" style={{float: 'right'}} onClick={this.placeOrder}>Checkout</Button>
                             }
                         </div>
                     </Col>

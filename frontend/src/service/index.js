@@ -2,6 +2,30 @@ import axios from 'axios'
 
 const api = 'http://localhost:3000';
 
+export const getOrders = () => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${api}/orders`)
+            .then(response => {
+                resolve(response.data);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+}
+
+export const placeOrder = (items, owner, supplier) => {
+    return new Promise((resolve, reject) => {
+        axios.post(`${api}/order/place`, { items: items, owner: owner, supplier: supplier })
+            .then(response => {
+                resolve(response.data);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+}
+
 export const getCountries = () => {
     return new Promise((resolve, reject) => {
         axios.get(`${api}/order/countries`)

@@ -1,6 +1,20 @@
 import * as models from '../models'
 import mongoose from 'mongoose'
 const
+    getOrders = () => {
+        return models.Order.find({}).populate('items items.product locationFrom locationTo owner supplier').lean().exec();
+    },
+    placeOrder = (params) => {
+        let order = new models.Order({
+            items: params.items,
+            owner: params.owner._id,
+            supplier: params.supplier._id,
+            locationFrom: params.supplier.city._id,
+            locationTo: params.owner.city._id
+        });
+
+        return order.save();
+    },
     getCountries = () => {
         return models.Country
             .find({}, "-cities")
@@ -29,6 +43,8 @@ const
     }
 
 export {
+    getOrders,
+    placeOrder,
     getCountries,
     getCitiesByCountryId,
     getAvailableUsers,

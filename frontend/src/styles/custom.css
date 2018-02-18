@@ -1,6 +1,9 @@
 html,body,#root{
     height: 100%;
 }
+.ant-layout{
+    min-height: 100%;
+}
 .steps{
     width: 100%;
     padding: 20px 0;

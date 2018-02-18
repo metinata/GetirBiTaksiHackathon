@@ -1,6 +1,24 @@
 import { orderService } from '../../services'
 
 const
+    getOrders = (req, res, next) => {
+        orderService.getOrders()
+            .then(result => {
+                res.json(result);
+            })
+            .catch(e => {
+                res.json(e);
+            });
+    },
+    placeOrder = (req, res, next) => {
+        orderService.placeOrder(req.body)
+            .then(result => {
+                res.json(result);
+            })
+            .catch(e => {
+                res.json(e);
+            });
+    },
     getCountries = (req, res, next) => {
         orderService.getCountries()
             .then(countries => {
@@ -39,6 +57,8 @@ const
     }
 
 export {
+    getOrders,
+    placeOrder,
     getCountries,
     getCitiesByCountryId,
     getAvailableUsers,

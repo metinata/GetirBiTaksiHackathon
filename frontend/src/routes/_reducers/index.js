@@ -10,11 +10,14 @@ const initialState = {
     country: null,
     city: null,
     me: {},
-    basket: []
+    basket: [],
+    orders: []
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.GET_ORDERS:
+            return { ...state, orders: action.payload }
         case actionTypes.GET_COUNTRIES:
             return { ...state, countries: action.payload }
         case actionTypes.GET_CITIES:

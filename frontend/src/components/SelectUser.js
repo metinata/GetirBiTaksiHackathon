@@ -33,13 +33,13 @@ class SelectUser extends PureComponent {
                 title: 'ACTION',
                 key: 'login',
                 render: (text, record) => {
-                    return <Button type="primary" onClick={this.userSelect.bind(null, record.city._id, record.quota)}>SELECT</Button>
+                    return <Button type="primary" onClick={this.userSelect.bind(null, record)}>SELECT</Button>
                 }
             }
         ]
     }
-    userSelect(cityId, quota) {
-        this.props.selectUser(cityId, quota);
+    userSelect(supplier) {
+        this.props.selectUser(supplier);
     }
     render() {
         return (

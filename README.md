@@ -10,3 +10,23 @@
 
 #### Takım (1)
 Metin Ata Yeter <metinatayeter@gmail.com>
+
+### Uygulamayı Çalıştırmak
+
+Uygulamayı kolayca docker ile çalıştırabilirsiniz.
+
+Ana dizinde aşağıdaki komutu çalıştın.
+
+```
+docker-compose up
+```
+
+Tarayıcınızla aşağıdaki adrese girin
+
+```
+http://localhost:8080
+```
+
+
+
+

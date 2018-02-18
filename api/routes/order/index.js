@@ -19,4 +19,12 @@ router
     .route('/order/products')
     .get(controller.getProductsByCityId)
 
+router
+    .route('/order/place')
+    .post(controller.placeOrder)
+
+router
+    .route('/orders')
+    .get(controller.getOrders)
+
 export default router

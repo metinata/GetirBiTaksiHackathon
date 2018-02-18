@@ -1,4 +1,5 @@
 const
+    GET_ORDERS = 'GET_ORDERS',
     GET_COUNTRIES = 'GET_COUNTRIES',
     GET_CITIES = 'GET_CITIES',
     GET_PRODUCTS = 'GET_PRODUCTS',
@@ -7,9 +8,11 @@ const
     CHANGE_COUNTRY = 'CHANGE_COUNTRY',
     CHANGE_CITY = 'CHANGE_CITY',
     LOGIN = 'LOGIN',
+    PLACE_ORDER = 'PLACE_ORDER',
     RESET = 'RESET'
 
 export default {
+    GET_ORDERS,
     GET_COUNTRIES,
     GET_CITIES,
     GET_PRODUCTS,
@@ -18,5 +21,6 @@ export default {
     CHANGE_COUNTRY,
     CHANGE_CITY,
     LOGIN,
+    PLACE_ORDER,
     RESET
 }

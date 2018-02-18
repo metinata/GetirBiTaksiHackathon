@@ -9,8 +9,7 @@ const Order = new Schema({
         },
         quantity: {
             type: Number,
-            default: 1,
-            required: true
+            default: 1
         }
     }],
     owner: {
@@ -35,24 +34,15 @@ const Order = new Schema({
     },
     orderDate: {
         type: Date,
-        default: Date.now,
-        required: true
+        default: Date.now
     },
     deliveryDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     isDelivered: {
         type: Boolean,
         default: false
     }
-});
-
-Order.pre('save', (next) => {
-    /*
-        #TODO
-            -Check whether user quota available or not!
-    */
 });
 
 export default mongoose.model('Order', Order);

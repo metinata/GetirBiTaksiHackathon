@@ -17,12 +17,6 @@ class UserList extends PureComponent {
                 key: 'city',
                 render: (text, record) => text.name
             },
-            // {
-            //     title: 'Destination',
-            //     dataIndex: 'destination',
-            //     key: 'destination',
-            //     render: (text, record) => text.name
-            // },
             {
                 title: 'ACTION',
                 key: 'login',
