@@ -57,8 +57,6 @@ else {
 }
 
 cluster.on('exit', function (worker) {
-    // Replace the dead worker,
-    // we're not sentimental
     console.log('Worker %d died :(', worker.id);
     cluster.fork();
 });
